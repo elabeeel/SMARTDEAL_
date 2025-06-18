@@ -1,0 +1,64 @@
+{% extends 'tiendas/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="hero-section bg-light py-5">
+    <div class="container text-center">
+        <h1 class="display-4">Encuentra las mejores ofertas</h1>
+        <p class="lead">Compara precios en las principales tiendas online</p>
+        
+        <div class="row justify-content-center mt-4">
+            <div class="col-md-8">
+                <form method="POST" action="{% url 'buscar' %}">
+                    {% csrf_token %}
+                    <div class="input-group input-group-lg">
+                        <input type="text" class="form-control" name="query" 
+                               placeholder="Ejemplo: iPhone, Laptop, Zapatillas..." required>
+                        <button class="btn btn-primary" type="submit">
+                            <i class="bi bi-search"></i> Buscar
+                        </button>
+                    </div>
+                    <div class="form-text mt-2">
+                        <span class="badge bg-secondary">Amazon</span>
+                        <span class="badge bg-success">Mercado Libre (pronto)</span>
+                        <span class="badge bg-info">eBay (pronto)</span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container my-5">
+    <h2 class="text-center mb-4">¿Cómo funciona?</h2>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <i class="bi bi-search display-4 text-primary mb-3"></i>
+                    <h5>1. Busca tu producto</h5>
+                    <p>Escribe lo que estás buscando en nuestro buscador.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <i class="bi bi-arrow-left-right display-4 text-primary mb-3"></i>
+                    <h5>2. Compara precios</h5>
+                    <p>Vemos los precios en las principales tiendas online.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <i class="bi bi-cart-check display-4 text-primary mb-3"></i>
+                    <h5>3. Compra al mejor precio</h5>
+                    <p>Te llevamos directamente a la mejor opción.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
