@@ -1,0 +1,37 @@
+name: Django CI (SQLite + Selenium)
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout código
+      uses: actions/checkout@v3
+
+    - name: Configurar Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Instalar dependencias
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Configurar Chrome para Selenium
+      uses: browser-actions/setup-chrome@v1
+
+    - name: Verificar instalación de Chrome
+      run: google-chrome --version
+
+    - name: Ejecutar migraciones
+      run: python manage.py migrate
+
+    - name: Ejecutar pruebas
+      run: python manage.py test
