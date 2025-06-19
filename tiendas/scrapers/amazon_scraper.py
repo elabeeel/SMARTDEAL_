@@ -41,7 +41,7 @@ class AmazonScraper:
                 items = self.driver.find_elements(By.XPATH, "//div[@data-component-type='s-search-result']")
                 for item in items:
                     try:
-                        name_elem = item.find_element(By.XPATH, ".//h2//span")
+                        name_elem = item.find_element(By.XPATH, ".//a//h2//span")
                         price_elem = item.find_element(By.XPATH, ".//span[@class='a-offscreen']")
                         rating_elem = item.find_element(By.XPATH, ".//span[@class='a-icon-alt']")
                         link_elem = item.find_element(By.XPATH, ".//a[@class='a-link-normal s-no-outline']")
