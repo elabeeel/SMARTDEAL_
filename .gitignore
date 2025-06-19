@@ -1,5 +1,23 @@
-__pycache__/
-.env
-*.pyc
+# Ignora base de datos local
+db.sqlite3
+
+# Ignora perfiles de navegador
+profiles/
+
+# Ignora archivos temporales
 *.log
-.vscode/
+*.LOCK
+*.LOG
+*.pb
+*.pb.gz
+*.dat
+*.journal
+*.tflite
+*.db
+*.idx
+*.pma
+*.tmp
+
+# Ignora cachés del navegador
+Default/
+Crashpad/
