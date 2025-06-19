@@ -173,7 +173,9 @@ document.addEventListener('DOMContentLoaded', function() {
             const rating = parseFloat(card.dataset.rating) || 0;
 
             const priceFilter = price <= maxPrice;
-            const storeFilter = (amazonChecked && store === 'amazon') || (mercadolibreChecked && store === 'mercado-libre');
+            const storeFilter = 
+                (amazonChecked && store.includes('amazon'))|| 
+                (mercadolibreChecked && store.includes('mercado-libre'));
             const ratingFilter = rating >= minRating;
 
             if (priceFilter && storeFilter && ratingFilter) {
