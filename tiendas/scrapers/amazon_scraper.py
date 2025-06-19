@@ -58,7 +58,7 @@ class AmazonScraper:
                         results.append({
                             'tienda': 'Amazon',
                             'titulo': name_elem.text.strip(),
-                            'precio': price_elem.text.strip(),
+                            'precio': price_elem.get_attribute("textContent").strip(),
                             'rating': rating_elem.text.strip(),
                             'url': self._clean_url(link_elem.get_attribute("href")),
                             'imagen': img_elem.get_attribute("src"),
