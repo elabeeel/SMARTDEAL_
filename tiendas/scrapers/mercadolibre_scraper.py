@@ -32,7 +32,12 @@ class MercadoLibreScraper(BaseScraper):
             
             for item in items:
                 try:
-                    title = self._safe_extract(item, "h3.ui-search-item__title")
+                    title = (self._safe_extract(item, "a.poly-component__title") or
+                                     self._safe_extract(item, "h3.ui-search-item__title") or
+                                     self._safe_extract(item, "h2.ui-search-item__title") or
+                                     "Título no disponible"
+                                     )
+
                     
                     # --- Lógica de precio corregida ---
                     price_fraction = self._safe_extract(item, "span.andes-money-amount__fraction")
@@ -45,9 +50,13 @@ class MercadoLibreScraper(BaseScraper):
                     else:
                         price = "No disponible"
                     
-                    rating = self._safe_extract(item, "span.ui-search-reviews__rating-number")
-                    url = self._safe_extract(item, "a.ui-search-link", attr="href")
-                    image = self._safe_extract(item, "img.ui-search-result-image__element", attr="data-src") or self._safe_extract(item, "img.ui-search-result-image__element", attr="src")
+                    rating = self._safe_extract(item, "span.poly-reviews__rating")
+                    url = self._safe_extract(item, "a.poly-component__title", attr="href")
+                    image = (self._safe_extract(item, "img", attr="data-src") or 
+                             self._safe_extract(item, "img", attr="src") or 
+                             self._safe_extract(item, "img", attr="data-lazy") or
+                             "No disponible"
+                             )
 
                     try:
                         official_store_elem = item.find_element(By.CSS_SELECTOR, "p.ui-search-official-store-label")
