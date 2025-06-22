@@ -41,9 +41,19 @@ class AmazonScraper:
                 items = self.driver.find_elements(By.XPATH, "//div[@data-component-type='s-search-result']")
                 for item in items:
                     try:
-                        name_elem = item.find_element(By.XPATH, ".//a//h2//span")
+                        name_elem = item.find_element(By.XPATH, ".//a//h2//span") or item.find_element(By.XPATH, ".//h2//span")
                         price_elem = item.find_element(By.XPATH, ".//span[@class='a-offscreen']")
-                        rating_elem = item.find_element(By.XPATH, ".//span[@class='a-icon-alt']")
+                        rating_value = None
+                        try:
+                            rating_elem = item.find_element(By.XPATH, ".//span[contains(@class, 'a-icon-alt')]")
+                            full_rating_text = rating_elem.get_attribute("textContent").strip()
+
+                            if full_rating_text and ' de 5 estrellas' in full_rating_text:
+                                rating_value = full_rating_text.split(' de 5 estrellas')[0].strip()
+                            else:
+                                rating_value = full_rating_text
+                        except NoSuchElementException:
+                            rating_value = None
                         link_elem = item.find_element(By.XPATH, ".//a[@class='a-link-normal s-no-outline']")
                         img_elem = item.find_element(By.XPATH, ".//img[@class='s-image']")
 
@@ -59,7 +69,7 @@ class AmazonScraper:
                             'tienda': 'Amazon',
                             'titulo': name_elem.text.strip(),
                             'precio': price_elem.get_attribute("textContent").strip(),
-                            'rating': rating_elem.text.strip(),
+                            'rating': rating_value if rating_value else "No disponible",
                             'url': self._clean_url(link_elem.get_attribute("href")),
                             'imagen': img_elem.get_attribute("src"),
                             'patrocinado': patrocinado
