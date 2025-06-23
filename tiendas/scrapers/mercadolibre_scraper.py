@@ -69,7 +69,7 @@ class MercadoLibreScraper(BaseScraper):
                     products.append({
                         'tienda': 'Mercado Libre',
                         'titulo': title or "Título no disponible",
-                        'precio': f"${price.replace(',', '')}" if price != "No disponible" else price,
+                        'precio': f"${price}" if price != "No disponible" else price,
                         'rating': rating if rating else "No disponible",
                         'url': url or "No disponible",
                         'imagen': image or "No disponible",
