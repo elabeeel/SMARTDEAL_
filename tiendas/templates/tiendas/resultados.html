@@ -30,6 +30,10 @@
                     <input class="form-check-input filter-input" type="checkbox" id="mercadolibre" checked>
                     <label class="form-check-label" for="mercadolibre">Mercado Libre</label>
                 </div>
+                <div class="form-check">
+                    <input class="form-check-input filter-input" type="checkbox" id="ebay" checked>
+                    <label class="form-check-label" for="ebay">ebay</label>
+                </div>
                 
                 <h6 class="mt-4">Precio</h6>
                 <div class="mb-3">
@@ -161,6 +165,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const maxPrice = parseInt(priceRange.value);
         const amazonChecked = document.getElementById('amazon').checked;
         const mercadolibreChecked = document.getElementById('mercadolibre').checked;
+        const ebayChecked = document.getElementById('ebay').checked;
         const minRating = parseFloat(document.querySelector('input[name="rating"]:checked').value);
 
         const allProducts = Array.from(productList.querySelectorAll('.product-container'));
@@ -174,8 +179,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const priceFilter = price <= maxPrice;
             const storeFilter = 
-                (amazonChecked && store.includes('amazon'))|| 
-                (mercadolibreChecked && store.includes('mercado-libre'));
+                (amazonChecked && store.includes('amazon')) ||
+                (mercadolibreChecked && store.includes('mercado-libre')) ||
+                (ebayChecked && store.includes('ebay'));
             const ratingFilter = rating >= minRating;
 
             if (priceFilter && storeFilter && ratingFilter) {

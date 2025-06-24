@@ -4,6 +4,8 @@ from django.shortcuts import render
 from django.views import View
 from .scrapers.amazon_scraper import AmazonScraper
 from .scrapers.mercadolibre_scraper import MercadoLibreScraper
+from .scrapers.ebay_scraper import EbayScraper
+
 from .utils.scoring import calcular_score
 import threading
 import time
@@ -47,7 +49,7 @@ class BuscarProductosView(View):
                 print(f"Error ejecutando {scraper_class.__name__}: {str(e)}")
 
         # Configurar y lanzar hilos
-        scrapers = [AmazonScraper, MercadoLibreScraper]
+        scrapers = [AmazonScraper, MercadoLibreScraper, EbayScraper]
         for scraper_cls in scrapers:
             thread = threading.Thread(target=run_scraper, args=(scraper_cls, query, max_results))
             threads.append(thread)
